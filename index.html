@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バランス機能と健康 | 10秒・20秒で測る健康寿命と脳のバロメーター</title>
+    <meta name="description" content="片足立ちテストは健康寿命と脳機能を映し出す鏡。最新の医学研究データとインタラクティブなセルフチェック・タイマーであなたのバランス機能を評価します。">
+    
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            DEFAULT: '#5E88A6',
+                            light: '#7EA3BE',
+                            dark: '#466A84',
+                            tint: '#F2F6F9',
+                            border: '#DCE6EE'
+                        }
+                    },
+                    boxShadow: {
+                        'apple': '0 4px 24px -4px rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02)',
+                        'apple-hover': '0 12px 32px -4px rgba(94, 136, 166, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FBFBFD;
+            color: #1D1D1F;
+            font-feature-settings: "palt";
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-nav {
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+        /* SVG Ring Progress Transition */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand selection:text-white">
+
+    <!-- ナビゲーションバー -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-gray-200/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 font-semibold text-sm sm:text-base tracking-tight text-gray-900">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand"></span>
+                <span>バランス機能と健康</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-gray-500">
+                <a href="#evidence" class="hover:text-brand transition-colors">医学的根拠</a>
+                <a href="#statistics" class="hover:text-brand transition-colors">転倒リスク</a>
+                <a href="#brain" class="hover:text-brand transition-colors">脳との関係</a>
+                <a href="#checker" class="hover:text-brand transition-colors">セルフ診断ツール</a>
+                <a href="#training" class="hover:text-brand transition-colors">改善トレーニング</a>
+            </nav>
+            <a href="#checker" class="text-xs font-medium bg-brand hover:bg-brand-dark text-white px-3.5 py-1.5 rounded-full transition-colors">
+                今すぐ計測
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-14">
+        <!-- ヒーローセクション -->
+        <section class="relative overflow-hidden py-20 sm:py-28 px-4 sm:px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-tint border border-brand-border text-brand text-xs font-semibold tracking-wide mb-6">
+                    <span>EVIDENCE-BASED HEALTH</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-[1.15] mb-6">
+                    片足立ちが、<br class="sm:hidden">あなたの<br class="hidden sm:inline">
+                    <span class="text-brand">健康寿命</span>を映し出す。
+                </h1>
+                <p class="max-w-2xl mx-auto text-base sm:text-lg text-gray-500 leading-relaxed mb-10">
+                    わずか10秒、20秒のバランス保持テストは、全身の生命予後や脳の微細な変化を早期に捉える重要な医学的バロメーターです。
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                    <a href="#checker" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-brand hover:bg-brand-dark text-white font-medium text-sm sm:text-base transition-all shadow-sm hover:shadow">
+                        バランステストを計測する
+                    </a>
+                    <a href="#evidence" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 font-medium text-sm sm:text-base transition-all">
+                        研究データを見る
+                    </a>
+                </div>
+            </div>
+
+            <!-- キーメトリクス（3つの重要数値） -->
+            <div class="max-w-5xl mx-auto mt-16 sm:mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="bg-white rounded-3xl p-7 shadow-apple border border-gray-100">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-brand mb-2">10秒保持の基準（BJSM研究）</p>
+                    <div class="flex items-baseline gap-1 my-1">
+                        <span class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">84</span>
+                        <span class="text-xl font-bold text-brand">%増加</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                        10秒間の片足立ちができない人は、できる人に比べて7年以内の全原因死亡リスクが84%高まります。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-7 shadow-apple border border-gray-100">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-brand mb-2">国内の転倒事故（厚労省統計）</p>
+                    <div class="flex items-baseline gap-1 my-1">
+                        <span class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">約4</span>
+                        <span class="text-xl font-bold text-brand">倍</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                        日本の不慮の事故死第1位は「転倒・転落・墜落」。交通事故の約4倍、1日あたり約30人が亡くなっています。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-7 shadow-apple border border-gray-100">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-brand mb-2">20秒保持の基準（京都大学研究）</p>
+                    <div class="flex items-baseline gap-1 my-1">
+                        <span class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">20</span>
+                        <span class="text-xl font-bold text-brand">秒以上</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                        20秒以上片足立ちができない状態は、無症候性の脳小血管病変（隠れ脳梗塞など）の早期サインと関連します。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. 健康寿命の指標と年齢別データ -->
+        <section id="evidence" class="py-16 sm:py-24 px-4 sm:px-6 bg-white border-y border-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="max-w-2xl mb-12">
+                    <span class="text-xs font-bold tracking-widest uppercase text-brand">01 / LONGEVITY INDICATOR</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mt-2">
+                        片足立ちが健康寿命の指標となる
+                    </h2>
+                    <p class="text-gray-500 text-sm sm:text-base mt-3 leading-relaxed">
+                        英国スポーツ医学雑誌（BJSM）に掲載された51〜75歳の男女1,702人を対象とした追跡調査により、「10秒間の片足立ち」が全身の健康状態と生命予後を簡便にスクリーニングする重要な医学的基準であることが証明されました。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- 年齢別テスト不合格率チャート -->
+                    <div class="lg:col-span-7 bg-[#FBFBFD] rounded-3xl p-6 sm:p-8 border border-gray-200/70">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base sm:text-lg">年齢別の10秒片足立ち不合格率</h3>
+                                <p class="text-xs text-gray-500 mt-0.5">60代後半から不合格率が急増し、70代前半では半数以上が失敗</p>
+                            </div>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-600">
+                                3回中1回成功で合格
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- 51-55 -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">51〜55歳</span>
+                                    <span class="font-bold text-gray-900">5%</span>
+                                </div>
+                                <div class="w-full h-3 bg-gray-200/70 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand/60 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                            <!-- 56-60 -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">56〜60歳</span>
+                                    <span class="font-bold text-gray-900">8%</span>
+                                </div>
+                                <div class="w-full h-3 bg-gray-200/70 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand/70 rounded-full" style="width: 8%"></div>
+                                </div>
+                            </div>
+                            <!-- 61-65 -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">61〜65歳</span>
+                                    <span class="font-bold text-gray-900">18%</span>
+                                </div>
+                                <div class="w-full h-3 bg-gray-200/70 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand/85 rounded-full" style="width: 18%"></div>
+                                </div>
+                            </div>
+                            <!-- 66-70 -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">66〜70歳</span>
+                                    <span class="font-bold text-brand">37%</span>
+                                </div>
+                                <div class="w-full h-3 bg-gray-200/70 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand rounded-full" style="width: 37%"></div>
+                                </div>
+                            </div>
+                            <!-- 71-75 -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">71〜75歳</span>
+                                    <span class="font-bold text-brand-dark">54%（約半数以上）</span>
+                                </div>
+                                <div class="w-full h-3 bg-gray-200/70 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-dark rounded-full" style="width: 54%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 転倒統計カード -->
+                    <div id="statistics" class="lg:col-span-5 bg-brand-tint rounded-3xl p-6 sm:p-8 border border-brand-border">
+                        <span class="text-xs font-bold tracking-widest uppercase text-brand">02 / FALL MORTALITY</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-4">
+                            日本では交通事故の4倍、転倒で亡くなっている
+                        </h3>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                            厚生労働省の統計によると、日本の不慮の事故による年間死亡者数（約4.4万〜4.5万人）のうち、第1位は「転倒・転落・墜落」です。
+                        </p>
+
+                        <div class="space-y-3 bg-white/80 rounded-2xl p-4 border border-white">
+                            <div class="flex items-center justify-between pb-2.5 border-b border-gray-100">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center">1</span>
+                                    <span class="text-sm font-bold text-gray-900">転倒・転落・墜落</span>
+                                </div>
+                                <span class="text-sm font-bold text-brand">年間 約1.2万人</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-2.5 border-b border-gray-100 text-gray-500">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-full bg-gray-200 text-gray-700 text-xs font-bold flex items-center justify-center">2</span>
+                                    <span class="text-sm">不慮の溺死および溺水</span>
+                                </div>
+                                <span class="text-xs">上位死因</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-2.5 border-b border-gray-100 text-gray-500">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-full bg-gray-200 text-gray-700 text-xs font-bold flex items-center justify-center">3</span>
+                                    <span class="text-sm">その他の不慮の窒息</span>
+                                </div>
+                                <span class="text-xs">上位死因</span>
+                            </div>
+                            <div class="flex items-center justify-between text-gray-500">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold flex items-center justify-center">4</span>
+                                    <span class="text-sm">交通事故</span>
+                                </div>
+                                <span class="text-xs font-medium">年間 約3,300〜3,500人</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-600 mt-4 leading-relaxed">
+                            ※単純計算で<strong>1日に約30人</strong>が転倒により命を落としており、特に80歳以上のスリップやつまずきが多数を占めます。バランス能力の維持は寿命を伸ばす重要な戦略です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 脳機能との関係 -->
+        <section id="brain" class="py-16 sm:py-24 px-4 sm:px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <span class="text-xs font-bold tracking-widest uppercase text-brand">03 / BRAIN NETWORK</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mt-2">
+                        「片足立ち」は脳機能を映し出す鏡
+                    </h2>
+                    <p class="text-gray-500 text-sm sm:text-base mt-3 leading-relaxed">
+                        片足立ちができない原因は単なる「脚力の低下」だけではありません。3つの感覚器官からの膨大な情報を、脳内で瞬時に統合する高度な神経ネットワークが試されています。
+                    </p>
+                </div>
+
+                <!-- 3つの感覚統合フロー -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+                    <div class="bg-white rounded-3xl p-6 shadow-apple border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-2xl bg-brand-tint text-brand flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg mb-2">① 視覚（目）</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                周囲の空間や水平・垂直の基準を捉え、身体の傾きや位置関係を脳へリアルタイムに送信します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-apple border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-2xl bg-brand-tint text-brand flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg mb-2">② 前庭覚（耳の内耳）</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                頭部の傾きや回転、重力に対する加速度を三半規管・耳石器で感知し、平衡感覚を保ちます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-apple border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-2xl bg-brand-tint text-brand flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg mb-2">③ 深部感覚（足裏・筋肉）</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                足裏の圧力変化や関節の角度、筋肉の張り具合といった固有感覚を感知し、姿勢を微調整します。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10秒 vs 20秒 比較バナー -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-apple border border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="p-5 rounded-2xl bg-[#FBFBFD] border border-gray-200/70">
+                            <div class="inline-block px-2.5 py-0.5 rounded-md bg-brand/10 text-brand text-xs font-bold mb-2">
+                                10秒保持の基準
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-900">全身の健康度・生命予後の指標</h4>
+                            <p class="text-sm text-gray-600 mt-1.5 leading-relaxed">
+                                10秒間の保持は、基礎的な身体機能と全身の健康リスクを評価する最低限のクリアラインです。
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-brand-tint border border-brand-border">
+                            <div class="inline-block px-2.5 py-0.5 rounded-md bg-brand text-white text-xs font-bold mb-2">
+                                20秒保持の基準（京都大学・AHA研究）
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-900">脳の健康度・微小血管の指標</h4>
+                            <p class="text-sm text-gray-700 mt-1.5 leading-relaxed">
+                                20秒以上保持できない場合、無症候性の脳小血管病変（ラクナ梗塞や脳微小出血）の早期サインである可能性が示されています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. インタラクティブ・バランステスト＆計算ツール -->
+        <section id="checker" class="py-16 sm:py-24 px-4 sm:px-6 bg-white border-y border-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-bold tracking-widest uppercase text-brand">04 / INTERACTIVE ASSESSMENT</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mt-2">
+                        バランステスト・タイマー＆健康評価ツール
+                    </h2>
+                    <p class="text-gray-500 text-sm sm:text-base mt-3">
+                        年齢とテストレベルを選択し、実際の保持時間を計測してください。あなたの年代の基準データや医学的リスク評価、推奨アクションを自動算出します。
+                    </p>
+                </div>
+
+                <!-- テスト手順ガイド（レベル1〜4） -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+                    <button type="button" onclick="selectLevel(1)" id="level-card-1" class="level-card text-left p-4 rounded-2xl border transition-all bg-[#FBFBFD] border-gray-200 hover:border-brand">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-brand">LEVEL 1</span>
+                            <span class="text-[11px] text-gray-400">目標 10秒</span>
+                        </div>
+                        <p class="font-bold text-sm text-gray-900 mb-1">閉脚立ち</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">両足をぴったりそろえて10秒間立ちます。</p>
+                    </button>
+
+                    <button type="button" onclick="selectLevel(2)" id="level-card-2" class="level-card text-left p-4 rounded-2xl border transition-all bg-[#FBFBFD] border-gray-200 hover:border-brand">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-brand">LEVEL 2</span>
+                            <span class="text-[11px] text-gray-400">目標 10秒</span>
+                        </div>
+                        <p class="font-bold text-sm text-gray-900 mb-1">セミタンデム立ち</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">片足を少し前に出し、後ろ足の親指を前足の土踏まずに触れさせて10秒立ちます。</p>
+                    </button>
+
+                    <button type="button" onclick="selectLevel(3)" id="level-card-3" class="level-card text-left p-4 rounded-2xl border transition-all bg-[#FBFBFD] border-gray-200 hover:border-brand">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-brand">LEVEL 3</span>
+                            <span class="text-[11px] text-gray-400">目標 10秒</span>
+                        </div>
+                        <p class="font-bold text-sm text-gray-900 mb-1">タンデム立ち（一直線）</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">前足のかかとと後ろ足のつま先を接して一直線に10秒間立ちます。</p>
+                    </button>
+
+                    <button type="button" onclick="selectLevel(4)" id="level-card-4" class="level-card text-left p-4 rounded-2xl border-2 transition-all bg-brand-tint border-brand">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-brand">LEVEL 4（標準基準）</span>
+                            <span class="text-[11px] font-semibold text-brand">10秒 / 20秒</span>
+                        </div>
+                        <p class="font-bold text-sm text-gray-900 mb-1">片足立ちテスト</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">上げた足の甲を軸足のふくらはぎ後ろに添え、両腕を下げて2m先を見てキープ。</p>
+                    </button>
+                </div>
+
+                <!-- 計算＆計測メインパネル -->
+                <div class="bg-[#FBFBFD] rounded-3xl p-6 sm:p-10 border border-gray-200/80 shadow-apple">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- 左側：タイマー＆入力コントロール -->
+                        <div class="lg:col-span-6 flex flex-col items-center">
+                            <!-- 年齢区分セレクター -->
+                            <div class="w-full max-w-sm mb-6">
+                                <label for="age-select" class="block text-xs font-semibold text-gray-600 mb-1.5">
+                                    あなたの年齢区分を選択（年代別データ比較用）
+                                </label>
+                                <select id="age-select" onchange="updateAssessment()" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand">
+                                    <option value="under50">50歳以下</option>
+                                    <option value="51-55">51〜55歳（不合格率 5%）</option>
+                                    <option value="56-60">56〜60歳（不合格率 8%）</option>
+                                    <option value="61-65" selected>61〜65歳（不合格率 18%）</option>
+                                    <option value="66-70">66〜70歳（不合格率 37%）</option>
+                                    <option value="71-75">71〜75歳（不合格率 54%）</option>
+                                    <option value="over76">76歳以上</option>
+                                </select>
+                            </div>
+
+                            <!-- 円形プログレスタイマー -->
+                            <div class="relative w-52 h-52 flex items-center justify-center my-2">
+                                <svg class="w-full h-full" viewBox="0 0 120 120">
+                                    <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60" />
+                                    <circle id="timer-ring" class="progress-ring__circle text-brand" stroke-width="6" stroke-dasharray="326.72" stroke-dashoffset="326.72" stroke-linecap="round" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                    <span id="selected-level-badge" class="text-[11px] font-bold tracking-wider uppercase text-brand mb-0.5">LEVEL 4</span>
+                                    <div class="font-bold text-4xl tracking-tight text-gray-900 tabular-nums" id="timer-display">0.0<span class="text-lg font-medium text-gray-500 ml-0.5">秒</span></div>
+                                    <span id="timer-milestone" class="text-[11px] font-medium text-gray-400 mt-1">目標: 10秒 / 理想: 20秒</span>
+                                </div>
+                            </div>
+
+                            <!-- タイマー操作ボタン -->
+                            <div class="flex items-center gap-3 mt-5 w-full max-w-sm">
+                                <button type="button" id="timer-toggle-btn" onclick="toggleTimer()" class="flex-1 py-3 px-5 rounded-full bg-brand hover:bg-brand-dark text-white font-semibold text-sm transition-all shadow-sm">
+                                    計測スタート
+                                </button>
+                                <button type="button" onclick="resetTimer()" class="py-3 px-4 rounded-full bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 font-medium text-sm transition-all">
+                                    リセット
+                                </button>
+                            </div>
+
+                            <!-- 手動スライダー／数値入力（既に計測済みの場合用） -->
+                            <div class="w-full max-w-sm mt-6 pt-5 border-t border-gray-200/80">
+                                <div class="flex justify-between items-center text-xs text-gray-500 mb-2">
+                                    <span>または記録を手動入力（最大30秒）</span>
+                                    <span class="font-semibold text-gray-800" id="manual-sec-label">0.0 秒</span>
+                                </div>
+                                <input type="range" id="manual-slider" min="0" max="30" step="0.5" value="0" oninput="handleManualInput(this.value)" class="w-full accent-brand cursor-pointer">
+                            </div>
+
+                            <!-- 3回試行ベスト記録トラッカー -->
+                            <div class="w-full max-w-sm mt-4 bg-white rounded-2xl p-3.5 border border-gray-200/70">
+                                <div class="flex items-center justify-between text-xs mb-2">
+                                    <span class="font-semibold text-gray-700">試行履歴（3回中1回クリアで合格）</span>
+                                    <button type="button" onclick="clearHistory()" class="text-gray-400 hover:text-gray-600 underline">履歴クリア</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 text-center" id="attempts-list">
+                                    <div class="py-1.5 px-2 rounded-lg bg-gray-50 text-xs text-gray-400">1回目: --</div>
+                                    <div class="py-1.5 px-2 rounded-lg bg-gray-50 text-xs text-gray-400">2回目: --</div>
+                                    <div class="py-1.5 px-2 rounded-lg bg-gray-50 text-xs text-gray-400">3回目: --</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右側：リアルタイム診断・計算結果レポート -->
+                        <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-apple">
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-gray-400">ASSESSMENT REPORT</span>
+                                    <h3 class="text-lg font-bold text-gray-900 mt-0.5">バランス健康度・リスク判定</h3>
+                                </div>
+                                <span id="status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
+                                    計測待ち
+                                </span>
+                            </div>
+
+                            <!-- 判定結果メインメッセージ -->
+                            <div class="my-5">
+                                <h4 id="result-headline" class="text-xl font-bold text-gray-900 mb-2">
+                                    タイマーをスタートするか、記録を入力してください
+                                </h4>
+                                <p id="result-description" class="text-sm text-gray-600 leading-relaxed">
+                                    安全な場所（壁や椅子の近く）で、両腕を体の横に自然に下ろし、約2m先の目線の高さの一点を見つめて計測を行ってください。
+                                </p>
+                            </div>
+
+                            <!-- 3つの自動計算インサイト -->
+                            <div class="space-y-3 bg-[#FBFBFD] rounded-2xl p-4 border border-gray-100">
+                                <div class="flex items-start justify-between gap-4 pb-3 border-b border-gray-200/60">
+                                    <span class="text-xs font-medium text-gray-500">① 全身の健康・生命予後（10秒基準）</span>
+                                    <span id="metric-longevity" class="text-xs font-bold text-right text-gray-800">未計測</span>
+                                </div>
+                                <div class="flex items-start justify-between gap-4 pb-3 border-b border-gray-200/60">
+                                    <span class="text-xs font-medium text-gray-500">② 脳の微小血管健康度（20秒基準）</span>
+                                    <span id="metric-brain" class="text-xs font-bold text-right text-gray-800">未計測</span>
+                                </div>
+                                <div class="flex items-start justify-between gap-4">
+                                    <span class="text-xs font-medium text-gray-500">③ 同年代における位置づけ</span>
+                                    <span id="metric-cohort" class="text-xs font-bold text-right text-brand">61〜65歳の不合格率は 18%</span>
+                                </div>
+                            </div>
+
+                            <!-- 推奨トレーニングプラン -->
+                            <div class="mt-5 pt-4 border-t border-gray-100">
+                                <span class="text-xs font-bold text-brand block mb-1">あなたへの推奨アクション</span>
+                                <p id="result-action" class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                    まずは「歯磨き中のフラミンゴポーズ」など、日常生活のすき間時間から安全にバランス感覚を刺激しましょう。
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. バランス能力訓練法 -->
+        <section id="training" class="py-16 sm:py-24 px-4 sm:px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="max-w-2xl mb-12">
+                    <span class="text-xs font-bold tracking-widest uppercase text-brand">05 / DAILY TRAINING</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mt-2">
+                        日常生活でできるバランス能力訓練法
+                    </h2>
+                    <p class="text-gray-500 text-sm sm:text-base mt-3 leading-relaxed">
+                        バランストレーニングは筋力や柔軟性に比べて後回しにされがちです。身体を様々な方向へ動かしながら、「目・耳・筋肉」の連携を鍛える習慣を取り入れましょう。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- トレーニング1：フラミンゴポーズ -->
+                    <div class="bg-white rounded-3xl p-7 shadow-apple border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-5">
+                                <span class="px-3 py-1 rounded-full bg-brand-tint text-brand text-xs font-bold">習慣化 ①</span>
+                                <span class="text-xs text-gray-400 font-medium">歯磨き・食器洗い中に</span>
+                            </div>
+                            <!-- ミニマルSVGイラスト -->
+                            <div class="w-full h-36 rounded-2xl bg-[#FBFBFD] border border-gray-100 flex items-center justify-center mb-5">
+                                <svg class="w-24 h-24 text-brand" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="50" cy="20" r="7" />
+                                    <line x1="50" y1="27" x2="50" y2="56" />
+                                    <line x1="50" y1="56" x2="50" y2="88" />
+                                    <polyline points="50,56 66,64 50,70" />
+                                    <polyline points="50,35 38,46 44,52" />
+                                    <polyline points="50,35 62,46 56,52" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">フラミンゴポーズ</h3>
+                            <ul class="text-sm text-gray-600 space-y-2 leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand font-bold">•</span>
+                                    <span>片足でまっすぐ立ちます（転倒防止のためキッチン台や壁の近くで行います）。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand font-bold">•</span>
+                                    <span>もう一方の足裏を、軸足側の膝の内側に軽くつけてキープします。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- トレーニング2：飛行機ポーズ -->
+                    <div class="bg-white rounded-3xl p-7 shadow-apple border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-5">
+                                <span class="px-3 py-1 rounded-full bg-brand-tint text-brand text-xs font-bold">習慣化 ②</span>
+                                <span class="text-xs text-gray-400 font-medium">床の物を拾う時に</span>
+                            </div>
+                            <!-- ミニマルSVGイラスト -->
+                            <div class="w-full h-36 rounded-2xl bg-[#FBFBFD] border border-gray-100 flex items-center justify-center mb-5">
+                                <svg class="w-24 h-24 text-brand" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="30" cy="44" r="6.5" />
+                                    <line x1="36" y1="47" x2="60" y2="54" />
+                                    <line x1="60" y1="54" x2="60" y2="88" />
+                                    <line x1="60" y1="54" x2="88" y2="48" />
+                                    <line x1="44" y1="50" x2="36" y2="76" />
+                                    <circle cx="36" cy="83" r="2.5" fill="currentColor" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">飛行機ポーズ</h3>
+                            <ul class="text-sm text-gray-600 space-y-2 leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand font-bold">•</span>
+                                    <span>片足で立ち、もう一方の脚を後ろへまっすぐ伸ばしながら上半身を前に倒します。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand font-bold">•</span>
+                                    <span>後ろへ伸ばした脚と同じ側の手を床へ伸ばし、物を拾い上げます。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- トレーニング3：登山（最高峰の訓練法） -->
+                    <div class="bg-brand text-white rounded-3xl p-7 shadow-apple flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-5">
+                                <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">最も有効な訓練法</span>
+                                <span class="text-xs text-white/80 font-medium">月1回の目標に</span>
+                            </div>
+                            <!-- ミニマルSVGイラスト -->
+                            <div class="w-full h-36 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center mb-5">
+                                <svg class="w-24 h-24 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="14,80 44,32 64,62 74,48 90,80" />
+                                    <polyline points="37,44 44,48 51,43" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">月1回の「登山」</h3>
+                            <p class="text-sm text-white/90 leading-relaxed mb-3">
+                                不整地（凸凹した山道）を長時間歩き続ける登山は、あらゆる方向への重心移動と感覚統合を同時に鍛えられる、他に類を見ない最高峰のバランストレーニングです。
+                            </p>
+                            <p class="text-xs text-white/80 bg-black/15 rounded-xl p-3 leading-relaxed">
+                                <strong>ステップアップ目安：</strong><br>
+                                まずは日常のポーズを習慣化し、<strong>片足立ち20秒以上</strong>をクリアできた方は、ぜひ月1回の登山に挑戦してみてください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-white border-t border-gray-200/70 py-10 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="flex items-center gap-2 font-semibold text-gray-800">
+                <span class="w-2 h-2 rounded-full bg-brand"></span>
+                <span>バランス機能と健康</span>
+            </div>
+            <p class="text-center sm:text-right leading-relaxed">
+                参考文献：英国スポーツ医学雑誌（BJSM）研究 / 厚生労働省 人口動態統計 / 京都大学（AHA）脳小血管病変研究<br>
+                ※本ページのセルフチェックは健康管理の目安であり、医学的診断に代わるものではありません。転倒に十分注意して実施してください。
+            </p>
+        </div>
+    </footer>
+
+    <!-- インタラクティブ計算・タイマーロジック -->
+    <script>
+        // 年代別の研究データ辞書（BJSM研究に基づく不合格率）
+        const ageDataMap = {
+            'under50': { label: '50歳以下', failRate: '5%未満', note: '本来は10秒・20秒ともに余裕をもってクリアしたい年代です。' },
+            '51-55':   { label: '51〜55歳', failRate: '5%', note: '同年代の95%が10秒クリアを達成しています。' },
+            '56-60':   { label: '56〜60歳', failRate: '8%', note: '同年代の92%が10秒クリアを達成しています。' },
+            '61-65':   { label: '61〜65歳', failRate: '18%', note: '60代に入ると約5〜6人に1人が10秒保持に失敗し始めます。' },
+            '66-70':   { label: '66〜70歳', failRate: '37%', note: '60代後半では約3人に1人以上が不合格となり、急激に差が開きます。' },
+            '71-75':   { label: '71〜75歳', failRate: '54%', note: '70代前半では過半数（54%）が10秒保持に失敗します。クリアできれば同年代の上位層です。' },
+            'over76':  { label: '76歳以上', failRate: '54%超', note: '80歳以上は転倒事故リスクが最も高い年代です。無理のない範囲で維持しましょう。' }
+        };
+
+        const levelDescriptions = {
+            1: { name: 'LEVEL 1（閉脚立ち）', target: 10 },
+            2: { name: 'LEVEL 2（セミタンデム立ち）', target: 10 },
+            3: { name: 'LEVEL 3（タンデム立ち）', target: 10 },
+            4: { name: 'LEVEL 4（片足立ち）', target: 10 }
+        };
+
+        let currentLevel = 4;
+        let isRunning = false;
+        let startTime = 0;
+        let elapsedSeconds = 0;
+        let timerInterval = null;
+        let attempts = []; // 最大3回分の記録を保持
+
+        const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * 52; // 326.72
+
+        // レベル選択処理
+        function selectLevel(level) {
+            if (isRunning) stopTimer(false);
+            currentLevel = level;
+
+            // カードのアクティブスタイル更新
+            document.querySelectorAll('.level-card').forEach((card, idx) => {
+                if (idx + 1 === level) {
+                    card.classList.remove('bg-[#FBFBFD]', 'border-gray-200', 'border');
+                    card.classList.add('bg-brand-tint', 'border-brand', 'border-2');
+                } else {
+                    card.classList.remove('bg-brand-tint', 'border-brand', 'border-2');
+                    card.classList.add('bg-[#FBFBFD]', 'border-gray-200', 'border');
+                }
+            });
+
+            document.getElementById('selected-level-badge').textContent = `LEVEL ${level}`;
+            document.getElementById('timer-milestone').textContent = level === 4
+                ? '合格: 10秒 / 脳健康基準: 20秒'
+                : '合格基準: 10秒以上キープ';
+
+            resetTimer();
+        }
+
+        // タイマー開始・停止トグル
+        function toggleTimer() {
+            if (isRunning) {
+                stopTimer(true);
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            isRunning = true;
+            startTime = performance.now() - (elapsedSeconds * 1000);
+            const btn = document.getElementById('timer-toggle-btn');
+            btn.textContent = 'ストップ（記録確定）';
+            btn.classList.remove('bg-brand', 'hover:bg-brand-dark');
+            btn.classList.add('bg-gray-900', 'hover:bg-gray-800');
+
+            timerInterval = requestAnimationFrame(updateTimerLoop);
+        }
+
+        function updateTimerLoop(now) {
+            if (!isRunning) return;
+            elapsedSeconds = (now - startTime) / 1000;
+            if (elapsedSeconds >= 30) {
+                elapsedSeconds = 30;
+                updateDisplay(elapsedSeconds);
+                stopTimer(true);
+                return;
+            }
+            updateDisplay(elapsedSeconds);
+            updateAssessment();
+            timerInterval = requestAnimationFrame(updateTimerLoop);
+        }
+
+        function stopTimer(recordAttempt) {
+            isRunning = false;
+            cancelAnimationFrame(timerInterval);
+
+            const btn = document.getElementById('timer-toggle-btn');
+            btn.textContent = '計測スタート';
+            btn.classList.remove('bg-gray-900', 'hover:bg-gray-800');
+            btn.classList.add('bg-brand', 'hover:bg-brand-dark');
+
+            if (recordAttempt && elapsedSeconds > 0.2) {
+                addAttemptRecord(elapsedSeconds);
+            }
+            updateAssessment();
+        }
+
+        function resetTimer() {
+            if (isRunning) {
+                isRunning = false;
+                cancelAnimationFrame(timerInterval);
+                const btn = document.getElementById('timer-toggle-btn');
+                btn.textContent = '計測スタート';
+                btn.classList.remove('bg-gray-900', 'hover:bg-gray-800');
+                btn.classList.add('bg-brand', 'hover:bg-brand-dark');
+            }
+            elapsedSeconds = 0;
+            updateDisplay(0);
+            updateAssessment();
+        }
+
+        // 手動スライダー入力
+        function handleManualInput(val) {
+            if (isRunning) stopTimer(false);
+            elapsedSeconds = parseFloat(val);
+            updateDisplay(elapsedSeconds);
+            updateAssessment();
+        }
+
+        // 表示とリングゲージの更新
+        function updateDisplay(sec) {
+            const formatted = sec.toFixed(1);
+            document.getElementById('timer-display').innerHTML = `${formatted}<span class="text-lg font-medium text-gray-500 ml-0.5">秒</span>`;
+            document.getElementById('manual-sec-label').textContent = `${formatted} 秒`;
+            document.getElementById('manual-slider').value = Math.min(sec, 30);
+
+            // 20秒を満タン（100%）としたプログレス計算
+            const progress = Math.min(sec / 20, 1);
+            const offset = CIRCLE_CIRCUMFERENCE - (progress * CIRCLE_CIRCUMFERENCE);
+            const ring = document.getElementById('timer-ring');
+            ring.style.strokeDashoffset = offset;
+
+            if (sec >= 20) {
+                ring.style.stroke = '#2E7D32'; // 20秒達成（理想）
+            } else if (sec >= 10) {
+                ring.style.stroke = '#5E88A6'; // 10秒達成（合格）
+            } else {
+                ring.style.stroke = '#7EA3BE';
+            }
+        }
+
+        // 3回試行履歴の追加・描画
+        function addAttemptRecord(sec) {
+            if (attempts.length >= 3) {
+                attempts.shift(); // 古い記録を押し出す
+            }
+            attempts.push(sec);
+            renderAttempts();
+        }
+
+        function clearHistory() {
+            attempts = [];
+            renderAttempts();
+            updateAssessment();
+        }
+
+        function renderAttempts() {
+            const container = document.getElementById('attempts-list');
+            let html = '';
+            for (let i = 0; i < 3; i++) {
+                if (attempts[i] !== undefined) {
+                    const val = attempts[i].toFixed(1);
+                    const passed = attempts[i] >= 10;
+                    html += `<div class="py-1.5 px-2 rounded-lg ${passed ? 'bg-brand-tint text-brand font-bold' : 'bg-gray-100 text-gray-700 font-medium'} text-xs">
+                        ${i + 1}回目: ${val}秒 ${passed ? '✓' : ''}
+                    </div>`;
+                } else {
+                    html += `<div class="py-1.5 px-2 rounded-lg bg-gray-50 text-xs text-gray-400">${i + 1}回目: --</div>`;
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        // 評価・リスク計算アルゴリズム
+        function updateAssessment() {
+            const ageKey = document.getElementById('age-select').value;
+            const ageInfo = ageDataMap[ageKey];
+
+            // 現在の計測値と過去3回のベスト記録のうち高い方を評価対象とする
+            const bestAttempt = attempts.length > 0 ? Math.max(...attempts) : 0;
+            const evalSec = Math.max(elapsedSeconds, bestAttempt);
+
+            const badge = document.getElementById('status-badge');
+            const headline = document.getElementById('result-headline');
+            const desc = document.getElementById('result-description');
+            const mLongevity = document.getElementById('metric-longevity');
+            const mBrain = document.getElementById('metric-brain');
+            const mCohort = document.getElementById('metric-cohort');
+            const action = document.getElementById('result-action');
+
+            // 同年代インサイトは常に最新化
+            mCohort.textContent = `${ageInfo.label}の10秒不合格率: ${ageInfo.failRate}`;
+
+            // 未計測状態
+            if (evalSec === 0) {
+                badge.textContent = '計測待ち';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600';
+                headline.textContent = 'タイマーをスタートするか、記録を入力してください';
+                desc.textContent = '安全な場所（壁や椅子の近く）で、両腕を体の横に自然に下ろし、約2m先の目線の高さの一点を見つめて計測を行ってください。';
+                mLongevity.textContent = '未計測（基準: 10秒以上）';
+                mLongevity.className = 'text-xs font-bold text-right text-gray-500';
+                mBrain.textContent = '未計測（基準: 20秒以上）';
+                mBrain.className = 'text-xs font-bold text-right text-gray-500';
+                action.textContent = ageInfo.note;
+                return;
+            }
+
+            // レベル1〜3の場合（基礎ステップ評価）
+            if (currentLevel < 4) {
+                const passed = evalSec >= 10;
+                if (passed) {
+                    badge.textContent = `LEVEL ${currentLevel} 合格`;
+                    badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brand-tint text-brand';
+                    headline.textContent = `${evalSec.toFixed(1)}秒達成！次のレベルへ進みましょう`;
+                    desc.textContent = `${levelDescriptions[currentLevel].name}の合格ライン（10秒）をクリアしました。少しずつ支持基底面（足の幅）を狭めてバランス感覚を高めていきましょう。`;
+                    action.textContent = `次は「LEVEL ${currentLevel + 1}」の10秒保持テストに挑戦してみてください。`;
+                } else {
+                    badge.textContent = `練習中（${evalSec.toFixed(1)}秒）`;
+                    badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700';
+                    headline.textContent = `あと ${(10 - evalSec).toFixed(1)}秒 でLEVEL ${currentLevel} 合格です`;
+                    desc.textContent = '焦らず3回まで挑戦できます。目線の高さで2m先の動かない一点をじっと見つめると姿勢が安定しやすくなります。';
+                    action.textContent = 'まずは安全に壁や机に手を添えられる環境で、10秒間の安定した立位を目指しましょう。';
+                }
+                mLongevity.textContent = 'LEVEL 4（片足立ち）で判定可能';
+                mLongevity.className = 'text-xs font-medium text-right text-gray-500';
+                mBrain.textContent = 'LEVEL 4（片足立ち）で判定可能';
+                mBrain.className = 'text-xs font-medium text-right text-gray-500';
+                return;
+            }
+
+            // LEVEL 4（標準・片足立ちテスト）の詳細医学判定
+            if (evalSec >= 20) {
+                badge.textContent = '極めて良好（20秒以上達成）';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700';
+                headline.textContent = `素晴らしいバランス機能です（記録: ${evalSec.toFixed(1)}秒）`;
+                desc.textContent = `「10秒の生命予後基準」および「20秒の脳健康基準」の両方をクリアしています。視覚・前庭覚・深部感覚と脳神経ネットワークが良好に連携しています。`;
+                mLongevity.textContent = '合格（低リスク群）';
+                mLongevity.className = 'text-xs font-bold text-right text-emerald-700';
+                mBrain.textContent = '合格（脳小血管リスクサインなし）';
+                mBrain.className = 'text-xs font-bold text-right text-emerald-700';
+                action.textContent = '20秒以上クリアできた方への推奨ステップは「月1回の登山」です。不整地を歩くことで、現在の高いバランス機能をさらに維持・向上できます。';
+            } else if (evalSec >= 10) {
+                badge.textContent = '合格（10秒基準クリア）';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brand-tint text-brand';
+                headline.textContent = `健康寿命の基準「10秒」をクリア（記録: ${evalSec.toFixed(1)}秒）`;
+                desc.textContent = `全身の健康度と生命予後の医学的基準（10秒以上）を達成しています。次の目標は、脳の微小血管の健康バロメーターである「20秒以上」の保持です。`;
+                mLongevity.textContent = '合格（10秒基準達成）';
+                mLongevity.className = 'text-xs font-bold text-right text-brand';
+                mBrain.textContent = `あと ${(20 - evalSec).toFixed(1)}秒 で脳健康基準（20秒）`;
+                mBrain.className = 'text-xs font-bold text-right text-amber-600';
+                action.textContent = '歯磨き中の「フラミンゴポーズ」や物を拾う時の「飛行機ポーズ」を日常に取り入れ、20秒保持を安定してクリアできる状態を目指しましょう。';
+            } else {
+                badge.textContent = '要注意（10秒未満）';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700';
+                headline.textContent = `10秒基準まで あと ${(10 - evalSec).toFixed(1)}秒（記録: ${evalSec.toFixed(1)}秒）`;
+                desc.textContent = `BJSM研究では、10秒間の片足立ちができない場合、7年以内の全原因死亡リスクが84%増加することが報告されています。テストは3回まで挑戦できるため、休憩を挟んで再試行してみてください。`;
+                mLongevity.textContent = '基準未達（死亡リスク +84% 該当群）';
+                mLongevity.className = 'text-xs font-bold text-right text-rose-700';
+                mBrain.textContent = '20秒基準未達（感覚統合の強化推奨）';
+                mBrain.className = 'text-xs font-bold text-right text-rose-700';
+                action.textContent = 'まずはレベル1〜3（閉脚・タンデム立ち）や、キッチン台に軽く触れながら行う「フラミンゴポーズ」から安全にバランス練習を始めましょう。';
+            }
+        }
+
+        // 初期描画
+        updateAssessment();
+    </script>
+</body>
+</html>
